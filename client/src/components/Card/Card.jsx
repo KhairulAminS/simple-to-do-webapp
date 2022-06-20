@@ -17,7 +17,7 @@ const Card = ({ task, selected, toggle, setTaskToEdit, setTasks, setIsOpen, setE
                 onClick={() => toggle(task.id)}
                 checked={selected === task.id? true : false}/>
 
-                <h1 className='text-3xl font-bold py-3 px-8'>
+                <h1 className='text-3xl font-bold py-3 px-5'>
                     {task.title}
                 </h1>
 
