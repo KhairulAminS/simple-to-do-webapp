@@ -1,8 +1,7 @@
 import React, { useEffect } from 'react'
 
-const PriorityRadio = ({form, setForm}) => {
+const PriorityRadio = ({form, setForm, editMode}) => {
 
-    useEffect(() => setForm({...form, priority: 'Normal'}), [])
 
     const onClick = (e) => {
         setForm({...form, priority: e.target.value})

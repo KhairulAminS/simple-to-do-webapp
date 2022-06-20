@@ -1,17 +1,25 @@
-import React, { useState } from 'react'
+import React, { useState, useEffect } from 'react'
 import ActionButton from './ActionButton'
 import Header from './Header'
 import Form from './Form'
 
-const Modal = ({ isOpen, setIsOpen }) => {
+const Modal = ({ taskToEdit, isOpen, setIsOpen, setTasks, editMode, setEditMode, addToast, editToast, setSelected }) => {
 
-    const [form, setForm] = useState({
+    const defaultForm = {
         title: '',
         description: '',
-        priority: ''
-    })
+        priority: 'Normal'
+    }
+
+    const [form, setForm] = useState()
+
+    useEffect(() => {
+        editMode? setForm(taskToEdit) : setForm(defaultForm)
+    },[editMode])
 
     const closeModal = () => {
+        editMode? setForm(taskToEdit) : setForm(defaultForm)
+        setEditMode(false)
         setIsOpen(false);
     }
 
@@ -21,18 +29,30 @@ const Modal = ({ isOpen, setIsOpen }) => {
         <div className='fixed flex inset-0 z-50 items-center justify-center'>
 
             <div
-                className='fixed w-full h-full bg-black opacity-70'
+                className='fixed inset-0 w-full h-full bg-black opacity-70'
                 onClick={() => closeModal()}>
                 Overlay
             </div>
 
-            <div className='relative flex flex-col justify-between items-center w-3/6 bg-white rounded-2xl z-10 p-5 animate-slideIn'>
+            <div className='relative flex flex-col justify-between items-center md:w-3/6 max-w-3xl w-full bg-white rounded-2xl z-10 p-5 animate-slideIn'>
                 <Header
-                    closeModal={closeModal} />
+                    closeModal={closeModal}
+                    editMode={editMode} />
 
-                <Form form={form} setForm={setForm}/>
+                <Form
+                    taskToEdit={taskToEdit}
+                    form={form}
+                    setForm={setForm}
+                    editMode={editMode} />
 
-                <ActionButton closeModal={closeModal}/>
+                <ActionButton
+                    form={form}
+                    closeModal={closeModal}
+                    setTasks={setTasks}
+                    editMode={editMode}
+                    addToast={addToast}
+                    editToast={editToast}
+                    setSelected={setSelected} />
             </div>
 
         </div>

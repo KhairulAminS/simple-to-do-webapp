@@ -1,7 +1,7 @@
 import React from 'react'
 import PriorityRadio from './PriorityRadio'
 
-const Form = ({ form, setForm }) => {
+const Form = ({ taskToEdit, form, setForm, editMode }) => {
 
     const setTitle = (e) => {
         setForm({ ...form, title: e.target.value })
@@ -18,15 +18,20 @@ const Form = ({ form, setForm }) => {
                 Title
             </label>
             <input className=' text-3xl outline-none border-b-4 border-gray-300' required
-            onChange={(e) => setTitle(e)}/>
+                onChange={(e) => setTitle(e)}
+                value={form.title} />
 
             <label className='text-2xl font-bold mt-5'>
                 Description
             </label>
             <textarea className='w-full whitespace-pre-line border-b-4 border-gray-300 outline-none text-3xl resize-y max-h-44 h-10'
-            onChange={(e) => setDescription(e)}/>
+                onChange={(e) => setDescription(e)}
+                value={form.description} />
 
-            <PriorityRadio form={form} setForm={setForm} />
+            <PriorityRadio
+                form={form}
+                setForm={setForm}
+                editMode={editMode} />
 
         </form>
     )
